@@ -1,0 +1,22 @@
+name: Build Windows EXE
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v4
+
+      - name: Compile calculator.exe
+        shell: bash
+        run: gcc calculator.c -o calculator.exe -lm -static
+
+      - name: Save the exe
+        uses: actions/upload-artifact@v4
+        with:
+          name: calculator-exe
+          path: calculator.exe
